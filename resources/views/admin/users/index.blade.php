@@ -20,7 +20,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$user->id}}</td>
-                        <td><img height="50px" src="{{ $user->photo ? $user->photo->file : 'No User Photo' }}" alt="No User Photo"></td>
+                        <td><img height="50px" src="{{ $user->photo ? $user->photo->file : 'https://picsum.photos/75/50/?random' }}" alt="No User Photo" class="img-rounded"></td>
                         <td><a href="{{ route('users.edit', $user->id) }}">{{$user->name}}</a></td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->name}}</td>
