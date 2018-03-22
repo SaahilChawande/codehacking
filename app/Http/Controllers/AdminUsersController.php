@@ -42,7 +42,10 @@ class AdminUsersController extends Controller
     public function store(UsersRequest $request)
     {
 
-        User::create($request->all());
+        $input = $request->all();
+        if ($request->file('photo_id')) {
+            return 'Photo exists';
+        }
         return redirect('/admin/users');
 
         //return $request->all();
