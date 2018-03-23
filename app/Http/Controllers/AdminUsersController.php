@@ -123,8 +123,9 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        Session::flash('deleted_user', $user->name . ' has been deleted');
+        unlink(public_path() . $user->photo->file);
         $user->delete();
+        Session::flash('deleted_user', $user->name . ' has been deleted');
         return redirect('/admin/users');
 
     }
