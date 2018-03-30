@@ -8,6 +8,7 @@ use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -50,6 +51,7 @@ class AdminPostsController extends Controller
             $input['photo_id'] = $photo->id;
         }
         $user->posts()->create($input);
+        Session::flash('created_post', 'The post with title - "' . $input['title'] . '" has been created');
         return redirect('/admin/posts');
     }
 
@@ -95,6 +97,7 @@ class AdminPostsController extends Controller
         }
 
         Auth::user()->posts()->whereId($id)->first()->update($input);
+        Session::flash('updated_post', 'The post with title - "' . $input['title'] . '" has been updated');
         return redirect('/admin/posts');
     }
 
@@ -107,8 +110,10 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        unlink(public_path() . $post->photo->file);
+        if ($post->file)
+            unlink(public_path() . $post->photo->file);
         $post->delete();
+        Session::flash('deleted_post', 'The post with title - "' . $post->title . '" has been deleted');
         return redirect('admin/posts');
     }
 }
