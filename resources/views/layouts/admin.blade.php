@@ -175,7 +175,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('media.upload') }}">Upload Media</a>
+                                <a href="{{ route('media.create') }}">Upload Media</a>
                             </li>
 
                         </ul>
